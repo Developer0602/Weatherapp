@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    {% load static %}
+    {% load bootstrap4 %}
+    {% bootstrap_javascript %}
+    {% bootstrap_css %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" ,initial-scale="1">
+    <title>Weater Site</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static '/css/file1.css' %}">
+   <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Josefin+Sans:ital,wght@1,600&display=swap" rel="stylesheet">
+
+
+
+</head>
+<body style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url('{% static '/images/back4.jpg'%}')">
+<form method="post">
+    {%csrf_token%}
+<div class="container2">
+    <label for="countryname" id="id1"><b>Select your State</b></label>
+    <select id="select1" size="1" style="font-size:25px;" onchange="changelist()" name="select1">
+        <option id="opt1">Select State</option>
+        <option id="opt1" value="Andhra Pradesh">Andhra Pradesh</option>
+        <option id="opt1" value="Arunachal Pradesh">Arunachal Pradesh</option>
+        <option id="opt1" value="Assam">Assam</option>
+        <option id="opt1" value="Bihar">Bihar</option>
+        <option id="opt1" value="Chhattisgarh">Chhattisgarh</option>
+        <option id="opt1" value="Goa">Goa</option>
+        <option id="opt1" value="Gujarat">Gujarat</option>
+        <option id="opt1" value="Haryana">Haryana</option>
+        <option id="opt1" value="Himachal Pradesh">Himachal Pradesh</option>
+        <option id="opt1" value="Jammu and Kashmir">Jammu and Kashmir</option>
+        <option id="opt1" value="Jharkhand">Jharkhand</option>
+        <option id="opt1" value="karnataka">Karnataka</option>
+        <option id="opt1" value="Kerala">Kerala</option>
+        <option id="opt1" value="Madhya Pradesh">Madhya Pradesh</option>
+        <option id="opt1" value="Maharashtra">Maharashtra</option>
+        <option id="opt1" value="Manipur">Manipur</option>
+        <option id="opt1" value="Meghalaya">Meghalaya</option>
+        <option id="opt1" value="Mizoram">Mizoram</option>
+        <option id="opt1" value="Nagaland">Nagaland</option>
+        <option id="opt1" value="Odisha">Odisha</option>
+        <option id="opt1" value="Punjab">Punjab</option>
+        <option id="opt1" value="Rajasthan">Rajasthan</option>
+        <option id="opt1" value="Sikkim">Sikkim</option>
+        <option id="opt1">Tamil Nadu </option>
+        <option id="opt1">Telangana </option>
+        <option id="opt1">Tripura  </option>
+        <option id="opt1">Uttar Pradesh </option>
+        <option id="opt1">Uttarakhand</option>
+        <option id="opt1">West Bengal </option>
+    </select>
+    <label for="statename" id="id2"><b>Select your City</b></label>
+    <select id="select2" size="1" style="font-size:25px;" name="select2"><option id="opt2">Select City</option></select>
+    <button type="submit" name="check" value="check" id="button1" style="font-size:25px;">Check Climate</button>
+</div>
+</form>
+
+<form style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('{% static '/images/back4.jpg'%}')" id="form1">
+    {%csrf_token%}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4  col-md-6 col-sm-6 upprdiv">
+                <p style="font-size:50px;">{{ city_weather.city}}</p>
+                <p style="font-size:45px;"> &emsp;&emsp;{{ city_weather.state}}</p>
+
+            </div>
+
+            <div class="col-lg-4  col-md-6 col-sm-6 upprdiv rightdivuppr">
+                <p style="font-size:50px;">{{ city_weather.date}}</p>
+                <p style="font-size:80px;">&emsp;&emsp;{{ city_weather.country}}</p>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 middiv">
+                <article class="media">
+                    <div class="media-left">
+                        <figure class="figure">
+                            <img class="setimage" src={{ city_weather.icon}}>
+                        </figure>
+                    </div>
+                    <div class="media-right">
+                        <p style="font-size:150px;">{{ city_weather.temp_c}}<sup><sup>0</sup>C</sup></p>
+
+                    </div>
+                    <p>&emsp;&emsp;</p>
+                    <div class="media-right">
+                        <p style="font-size:100px;margin-top:60px;">{{ city_weather.temp_f}}<sup><sup>0</sup>f</sup></p>
+                    </div>
+
+                </article>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 ">
+                <div class="col lwrdiv ">
+                     <div class="media-left">
+                        <figure class="figure">
+                            <img class="setimage" src={{ city_weather.day1.day1icon }}>
+                        </figure>
+                    </div><br>
+                    <p style="font-size:30px;" class="right"> {{city_weather.day1.day1text}}</p><br>
+                    <p style="font-size:30px;" class="right"> {{city_weather.day1.date1}}</p><br>
+                    <p style="font-size:30px;" class="right"> Max-temp :{{city_weather.day1.max_temp}}</p><br>
+                    <p style="font-size:30px;" class="right"> Min-temp :{{city_weather.day1.min_temp}}</p><br>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col lwrdiv">
+                    <div class="media-left">
+                        <figure class="figure">
+                            <img class="setimage" src={{ city_weather.day2.day2icon }}>
+                        </figure>
+                    </div><br>
+                    <p style="font-size:30px;" class="right"> {{city_weather.day2.day2text}}</p><br>
+                    <p style="font-size:30px;" class="right"> {{city_weather.day2.date2}}</p><br>
+                    <p style="font-size:30px;" class="right"> Max-temp :{{city_weather.day2.max_temp}}</p><br>
+                    <p style="font-size:30px;" class="right"> Min-temp :{{city_weather.day2.min_temp}}</p><br>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col lwrdiv">
+                    <div class="media-left">
+                        <figure class="figure">
+                            <img class="setimage" src={{ city_weather.day3.day3icon }}>
+                        </figure>
+                    </div><br>
+                    <p style="font-size:30px;" class="right"> {{city_weather.day3.day3text}}</p><br>
+                    <p style="font-size:30px;" class="right"> {{city_weather.day3.date3}}</p><br>
+                    <p style="font-size:30px;" class="right"> Max-temp :{{city_weather.day3.max_temp}}</p><br>
+                    <p style="font-size:30px;" class="right"> Min-temp :{{city_weather.day3.min_temp}}</p><br>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<script>
+    var citynames={};
+    citynames['Andhra Pradesh']=['Anantapur','Chittoor','East Godavari','Guntur','YSR Kadapa district','Krishna','Kurnool','Nellore','Prakasam','Srikakulam','Visakhapatnam','Vizianagaram','West Godavari'];
+    citynames['Arunachal Pradesh']=['Anjaw','Changlang','East Kameng','Pasighat','Lohit','Lower Subansiri','Papum Pare','Tawang Town','Tirap','Lower Dibang Valley','Upper Siang','Upper Subansiri','West Kameng','West Siang','Upper Dibang Valley','Kurung Kumey'];
+    citynames['Assam']=['Baksa','Barpeta','Bongaigaon','Cachar','Chirang','Darrang','Dhemaji','Dhubri','Dibrugarh','Dima Hasao','Goalpara','Golaghat','Hailakandi','Jorhat','Kamrup','Kamrup Metropolitan','Karbi Anglong','Karimganj','Kokrajhar','Lakhimpur','Morigaon','Nagaon','Nalbari','Sivasagar','Sonitpur','Tinsukia','Udalguri','Biswanath','Charaideo','Hojai','Majuli','South Salamara-Mankachar','West Karbi Anglong'];
+    citynames['Bihar']=['Araria','Arwal','Aurangabad','Banka','Begusarai','Bhagalpur','Bhojpur','Buxar','Darbhanga','Gaya','Gopalganj','Jamui','Jehanabad','Kaimur','Katihar','Khagaria','Kishanganj','Lakhisarai','Madhepura','Madhubani','Munger','Muzaffarpur','Nalanda','Nawada','Pashchim Champaran','Patna','Purbi Champaran','Purnia','Rohtas','Saharsa','Samastipur','Saran','Sheikhpura','Sheohar','Sitamarhi','Siwan','Supaul','Vaishali'];
+    citynames['Chhattisgarh']=['Balod','Baloda Bazar','Balrampur','Bastar','Bemetara','Bijapur','Bilaspur','Dantewada','Dhamtari','Durg','Gariaband','Janjgir Champa','Jashpur','Kabirdham','Kanker','Kondagaon','Korba','Korea','Mahasamund','Mungeli','Narayanpur','Raigarh','Raipur','Rajnandgaon','Sukma','Surajpur','Surguja'];
+    citynames['Goa']=['North Goa','South Goa'];
+    citynames['Gujarat']=['Ahmedabad','Amreli','Anand','Aravali','Banaskantha','Bharuch','Bhavnagar','Botad','Chhota Udaipur','Devbhoomi Dwarka','Dohad','Gandhinagar','Gir Somnath','Jamnagar','Junagadh','Kachchh','Kheda','Mahisagar','Mehsana','Morbi','Narmada','Navsari','PanchMahal','Patan','Porbandar','Rajkot','Sabarkantha','Surat','Surendranagar','Tapi','The Dangs','Vadodara','Valsad'];
+    citynames['Haryana']=['Ambala','Bhiwani','Faridabad','Fatehabad','Gurgaon','Hisar','Jhajjar','Jind','Kaithal','Karnal','Kurukshetra','Mahendragarh','Mewat','Palwal','Panchkula','Panipat','Rewari','Rohtak','Sirsa','Sonipat','Yamunanagar','Charkhi Dadri'];
+    citynames['Himachal Pradesh']=['Bilaspur','Chamba','Hamirpur','Kangra','Kinnaur','Kullu','Lahul and Spiti','Mandi','Shimla','Sirmaur','Solan','Una'];
+    citynames['Jammu and Kashmir']=['Anantnag','Badgam','Bandipora','Baramula','Doda','Ganderbal','Jammu','Kargil','Kathua','Kishtwar','Kulgam','Kupwara','Leh','Pulwama','Punch','Rajouri','Ramban','Reasi','Samba','Shupiyan','Srinagar','Udhampur'];
+    citynames['Jharkhand']=['Bokaro','Chatra','Deoghar','Dhanbad','Dumka','East Singhbhum','Garhwa','Giridih','Godda','Gumla','Hazaribagh','Jamtara','Khunti','Kodarma','Latehar','Lohardaga','Pakur','Palamu','Ramgarh','Ranchi','Sahibganj','Saraikela Kharsawan','Simdega','West Singhbhum'];
+    citynames['Karnataka']=['Bagalkot','Bangalore','Bangalore Rural','Belgaum','Bellary','Bidar','Bijapur','Chamarajanagar','Chikkaballapura','Chikmagalur','Chitradurga','Dakshina Kannada','Davanagere','Dharwad','Gadag','Gulbarga','Hassan','Haveri','Kodagu','Kolar','Koppal','Mandya','Mysore','Raichur','Ramanagara','Shimoga','Tumkur','Udupi','Uttara Kannada','Yadgir'];
+    citynames['Kerala']=['Alappuzha','Ernakulam','Idukki','Kannur','Kasaragod','Kollam','Kottayam','Kozhikode','Malappuram','Palakkad','Pathanamthitta','Thiruvananthapuram','Thrissur','Wayanad'];
+    citynames['Madhya Pradesh']=['Agar','Alirajpur','Anuppur','Ashok Nagar','Balaghat','Barwani','Betul','Bhind','Bhopal','Burhanpur','Chhatarpur','Chhindwara','Damoh','Datia','Dewas','Dhar','Dindori','Guna','Gwalior','Harda','Hoshangabad','Indore','Jabalpur','Jhabua','Katni','Khandwa','Mandla','Mandsaur','Morena','Narsinghpur','Neemuch','Panna','Raisen','Rajgarh','Ratlam'];
+    citynames['Maharashtra']=['Ahmadnagar','Akola','Amravati','Aurangabad','Bhandara','Bid','Buldana','Chandrapur','Dhule','Gadchiroli','Gondiya','Hingoli','Jalgaon','Jalna','Kolhapur','Latur','Mumbai','Mumbai Suburban','Nagpur','Nanded','Nandurbar','Nashik','Osmanabad','Palghar','Parbhani','Pune','Raigarh','Ratnagiri','Sangli','Satara','Sindhudurg','Solapur','Thane','Wardha','Washim','Yavatmal'];
+    citynames['Manipur']=['Bishnupur','Chandel','Churachandpur','Imphal East','Imphal West','Senapati','Tamenglong','Thoubal','Ukhrul','Jiribam','Kangpokpi','Kakching district','Tengnoupal','Kamjong','Noney','Pherzawl'];
+    citynames['Meghalaya']=['East Garo Hills','West Garo Hills','North Garo Hills','South Garo Hills','South West Garo Hills','East Jaintia Hills','West Jaintia Hills','East Khasi Hills','South West Khasi Hills','West Khasi Hills','Ri-Bhoi'];
+    citynames['Mizoram']=['Aizawl','Champhai','Kolasib','Lawngtlai','Lunglei','Mamit','Saiha','Serchhip'];
+    citynames['Nagaland']=['Dimapur','Kiphire','Kohima','Longleng','Mokokchung','Mon','Peren','Phek','Tuensang','Wokha','Zunheboto'];
+    citynames['Odisha']=['Angul','Balangir','Balasore','Bargarh','Boudh','Bhadrak','Cuttack','Debagarh','Dhenkanal','Gajapati','Ganjam','Jagatsinghpur','Jajpur','Jharsuguda','Kalahandi','Kandhamal','Kendrapara','Kendujhar','Khordha','Koraput','Malkangiri','Mayurbhanj','Nabarangpur','Nayagarh','Nuapada','Puri','Rayagada','Sambalpur','Subarnapur','Sundergarh'];
+    citynames['Punjab']=['Amritsar','Barnala','Bathinda','Fazilka','Faridkot','Fatehgarh Sahib','Firozpur','Gurdaspur','Hoshiarpur','Jalandhar','Kapurthala','Ludhiana','Mansa','Moga','Mohali','Muktsar','Pathankot','Patiala','Rupnagar','Sangrur','Shahid Bhagat Singh Nagar','Tarn Taran'];
+    citynames['Rajasthan']=['Ajmer','Alwar','Banswara','Baran','Barmer','Bharatpur','Bhilwara','Bikaner','Bundi','Chittaurgarh','Churu','Dausa','Dhaulpur','Dungarpur','Ganganagar','Hanumangarh','Jaipur','Jaisalmer','Jalor','Jhalawar','Jhunjhunun','Jodhpur','Karauli','Kota','Nagaur','Pali','Pratapgarh','Rajsamand','Sawai Madhopur','Sikar','Sirohi','Tonk','Udaipur'];
+    citynames['Sikkim']=['East Sikkim','North Sikkim','South Sikkim','West Sikkim'];
+
+
+    function changelist(){
+    var statelist=document.getElementById("select1");
+    var citylist=document.getElementById("select2");
+    var x= statelist.options[statelist.selectedIndex].value;
+    alert(x);
+    while(citylist.options.length)
+        {
+            citylist.remove(0);
+        }
+    var cities=citynames[x];
+
+    if(cities)
+    {
+        for(var i=0;i<cities.length;i++)
+        {
+            var city = new Option(cities[i],cities[i]);
+            citylist.options.add(city);
+            citylist.style.backgroundColor="lightblue";
+        }
+    }
+}
+</script>
+</body>
+</html>
